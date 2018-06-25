@@ -1,0 +1,19 @@
+.blog-show.blog
+  .header
+  .container
+    - content_for :body do
+      .row
+        #show_blog_post.col-md-8.col-md-offset-2
+          = render 'post'
+        -# #blog-sidebar-wrapper.col-md-4.hidden-xs.hidden-sm
+          = render 'refinery/blog/shared/blog_sidebar'
+
+        -# = render 'comments'
+    -# = render '/refinery/blog/shared/body_content_right'
+    = render "/refinery/content_page", :remove_automatic_sections => true
+    - content_for :stylesheets, stylesheet_link_tag('refinery/blog/frontend')
+    - content_for :javascripts do
+      %script{:src => "http://w.sharethis.com/button/buttons.js"}
+      :javascript
+        stLight.options({publisher:'#{Refinery::Blog.share_this_key}'});
+    - end if Refinery::Blog::Post::ShareThis.enabled?

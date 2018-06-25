@@ -1,0 +1,18 @@
+wymeditor_boot_options.toolsItems.push({'name': 'AddVideo', 'title': 'Add_Video', 'css': 'wym_tools_add_video'});
+
+  if (WYMeditor.STRINGS['en']) WYMeditor.STRINGS['en']['Video'] = WYMeditor.STRINGS['en']['Add_Video'] = 'Add Video';
+  if (WYMeditor.STRINGS['es']) WYMeditor.STRINGS['es']['Video'] = WYMeditor.STRINGS['es']['Add_Video'] = 'Video';
+  if (WYMeditor.STRINGS['sk']) WYMeditor.STRINGS['sk']['Video'] = WYMeditor.STRINGS['sk']['Add_Video'] = 'Video';
+  if (WYMeditor.STRINGS['pt-BR']) WYMeditor.STRINGS['pt-BR']['Video'] = WYMeditor.STRINGS['pt-BR']['Add_Video'] = 'Vídeo';
+  if (WYMeditor.STRINGS['zh-CN']) WYMeditor.STRINGS['zh-CN']['Video'] = WYMeditor.STRINGS['zh-CN']['Add_Video'] = '添加视频';
+
+onCloseDialog = function(){
+   $('iframe#dialog_iframe').attr('src', '');
+};
+
+WYMeditor.editor.prototype.exec_without_video = WYMeditor.editor.prototype.exec;
+WYMeditor.editor.prototype.exec = function(cmd) {
+	if (cmd == 'AddVideo') {
+		this.dialog('Video');
+	} else this.exec_without_video(cmd);
+};

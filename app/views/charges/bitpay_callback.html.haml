@@ -1,0 +1,14 @@
+= render 'shared/zopim'
+
+#thankyou
+  %section
+    .container
+      = image_tag "media/company.png"
+      - if @order.is_paid?
+        %h1 Thank you for the purchase!
+        %h3 We will get back to you soon.
+      - else
+        %h1 There is something wrong
+        %h3 
+          = link_to 'Please try again', checkout_page_path
+

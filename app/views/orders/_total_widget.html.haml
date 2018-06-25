@@ -1,0 +1,9 @@
+%p
+  Total:
+  %b #{total_price}
+
+  = form_for @order, url: reset_order_path, remote: true do |f|
+    = button_tag type: :submit, data: {confirm: "Are you sure?"} do
+      = fa_icon "trash"
+
+  = link_to (fa_icon "arrow-circle-down"), "#review-anchor", class: "smooth-scroll"

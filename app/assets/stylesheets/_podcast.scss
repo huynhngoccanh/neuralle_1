@@ -1,0 +1,53 @@
+.pages_page.podcast {
+  .header {
+    text-align: center;
+    background: #f6996b;
+    height: 250px;
+    padding-top: 100px;
+    margin-bottom: 20px;
+
+    h3 {
+      color: white;
+      font-family: "Roboto", sans-serif;
+      font-size: 40pt;
+      color: white;
+      font-weight: bold;
+    }
+  }
+
+  header#header {
+    height: auto;
+
+    .navbar-default {
+      background-color: transparent;
+      height: auto;
+      border: none;
+    }
+
+     .navbar-fixed-top {
+      position: absolute;
+    }
+  }
+  #body_content {
+    padding-top: 0;
+  }
+
+  @media (max-width: 991px) {
+    header#header {
+      .navbar-fixed-top {
+        position: relative;
+        background-color: rgb(247, 115, 52);
+        margin-bottom: 0;
+      }
+    }
+
+    .header {
+      height: 150px;
+      padding-top: 20px;
+
+      h3 {
+        font-size: 3rem;
+      }
+    }
+  }
+}

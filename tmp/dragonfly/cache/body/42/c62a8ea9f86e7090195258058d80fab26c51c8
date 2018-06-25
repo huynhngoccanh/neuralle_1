@@ -1,0 +1,15 @@
+(function() {
+  $(document).ready(function() {
+    var placeholderWidth;
+    placeholderWidth = $('#what img:first').width();
+    $('.pricing-btn').attr('width', placeholderWidth + "px");
+    $('#faq-toggle').on('click', function() {
+      $(this).slideUp(50);
+      return $('#faq').slideDown(300);
+    });
+    return $('#media #slider').on('mouseover', function() {
+      return $(this).addClass('focus');
+    });
+  });
+
+}).call(this);

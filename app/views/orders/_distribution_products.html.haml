@@ -1,0 +1,35 @@
+.product-tile.sliders-tile
+  %h4 Social Media Distribution
+  .row
+    .col-md-4
+      .sliders-explanation
+        %p Select how many Social media channels and how often you'd like us to distribute your podcast or video. This includes uploading and hashtagging per post.
+    .col-md-8#distribution-sliders.sliders-wrapper
+      = render "distribution_sliders"
+
+-# .wrapper.col-md-4
+  .product-tile.distr{ "data-price" => set_discount(@distribution_product_price) }
+    .inner
+      %h3 Social Media Distribution
+      %hr
+      .product-description
+        %h5 Number of posts:
+
+        - @distribution_products.each do |product|
+          .row
+            .mgmt-distr-product
+              = form_for order_item(product.id), remote: true do |f|
+                = f.hidden_field :product_id, value: product.id
+                = fa_icon product.name.downcase, class: ("active" if product.order_items.take.quantity > 0)
+                = f.number_field :quantity, class: "form-control"
+
+        -# - @distribution_products.each do |product|
+          .mgmt-distr-product
+            = form_for order_item(product.id), remote: true do |f|
+              = f.hidden_field :product_id, value: product.id
+              = label_tag "order_item_quantity_#{product.id}" do
+                = fa_icon product.name.downcase
+                = f.check_box :quantity, {id: "order_item_quantity_#{product.id}"}, 1, 0
+
+      %hr
+        %span{ class: "btn primary product-price" }= formatted_distribution_total_price

@@ -1,0 +1,14 @@
+(function() {
+  $(document).ready(function() {
+    $(document).on('change', '#checkout #brief-form input', function() {
+      return $(this).closest('form').submit();
+    });
+    $(document).on('change', '#checkout #brief-form textarea', function() {
+      return $(this).closest('form').submit();
+    });
+    return $(document).on('change', '#checkout #brief-form select', function() {
+      return $(this).closest('form').submit();
+    });
+  });
+
+}).call(this);

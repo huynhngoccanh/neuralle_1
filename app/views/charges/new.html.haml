@@ -1,0 +1,25 @@
+= render 'shared/zopim'
+
+#checkout
+  %section#back
+    .container
+      .btn-wrapper
+        = link_to "Go back and amend my package", pricing_page_path, class: "btn cta"
+  %section
+    .container#stages-wrapper
+      = render "orders/stages"
+
+  %section#brief-form
+    .container
+      %h2 Brief our Designers
+      %h5 * required
+      = render "charges/brief_request"
+
+  %section#review
+    .container
+      %h2 Your Package
+      #review-list
+        = render "orders/review_list"
+
+  %section#payment-details
+    = render "charges/payment_details"

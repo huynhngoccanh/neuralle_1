@@ -1,0 +1,85 @@
+= render 'shared/zopim'
+
+#media
+  %section#title
+    %h1 Media Production & Delivery at Scale
+
+  %section#why
+    .container
+      = render "static_pages/media/media_carousel"
+
+  %section#who
+    .container
+      %h2 Neuralle is for...
+      %p Business owners, content teams, and freelancers of all shapes and sizes. The platform’s flexibility helps them deliver unique and engaging content in a way that supports their own marketing and sales requirements.
+      = link_to "Common Questions", "javascript:void(0)", class: "btn cta", id: "faq-toggle"
+      #faq
+        %h2 Common Questions
+        %h4 What is Neuralle Media Services?
+        %p Neuralle media is a quick, easy to use, content media and distribution service. Similar to an eCommerce or SaaS system we’ve built our infrastructure so you can quickly price up an option and have the ultimate solution confirmed in 15-20 minutes.
+
+        %h4 How do I use Neuralle Media Services?
+        %p Simply choose your preferred monthly or one-off option. Then select how much content you’d like produced, distributed or how many social channels managed at www.neuralle.com/pricing.
+
+        %h4 When is payment required?
+        %p Payment is required before work is undertaken, this allows us to offer a much more affordable service that doesn’t require investment in accounts payable and chasing debtors.
+
+        %h4 How can I pay?
+        %p We offer payment in Mastercard, VISA, AMEX, Bitcoin and Ethereum.
+
+        %h4 What happens after payment?
+        %p Our team will get to work on transforming your brief into a digestible piece of work for our freelancers, providing you with an ETA on delivery via email.
+        %p For monthly bundle clients, we will set up your private Slack Channel & Google Drives, making contact within 24 hours.
+
+        %h4 How and when can I cancel my monthly account?
+        %p Cancelling is easy, just notify us through your private Slack Channel.
+        %p We require that you give notice within the recent paid month. I.e. if you notify us on the 15th of the month, your monthly bundle will end on the 30th or 31st (depending on the month.
+
+        %h4 Can I come back when I cancel?
+        %p Yes, we welcome back any client who chooses to use our service. Just simply reach back out on your private slack channel.
+
+  %section#apps-list
+    .container
+      %h2 A powerful suite of options for your business
+      %h4 Built for companies, by media practitioners
+      = render "static_pages/media/apps"
+
+  %section#work-with.logos-list
+    %h3 Who we currently work with
+    .logos
+      = image_tag "media/development_ready_logo.png"
+
+  %section#what
+    .container
+      %h2 So how does it work?
+      %p Setting up, operating and maintaining your own team of content creators is a significant investment of time and can be incredibly complex for business owners that don't have the experience.
+      %p Media agencies have a tendency to act nefarious and general to maximise the revenue they can make from your brief. Our simple and transparent process aims to counteract these issues.
+      %p We take your design brief, goals, and raw media, and translate that into deliverable content media that either you or Neuralle Media can distribute and manage.
+      %p From brief, to design style, to freelancer assignment, production and distribution we will handle everything involved in creating effective content media.
+
+      #slider
+        .row
+          .col-md-6.text-center.col-xs-6
+            %h4 Build engagement
+          .col-md-6.text-center.col-xs-6
+            %h4 Not a maze of tasks
+        .juxtapose.juxtapose-wrapper{ data: { "startingposition" => "32%", "makeResponsive" => "true", "animate" => "false" } }
+          = image_tag "media/build_engagement.png"
+          = image_tag "media/not_a_maze_of_tasks.png"
+
+      = link_to "Explore your content options", pricing_page_path, class: "btn bold cta"
+
+  %section.subscribtion-form
+    .container
+      .row
+        .col-md-6.image
+          = image_tag "headphones.jpg"
+        .col-md-5#mc_embed_signup
+          %h2 Not too sure?
+          %h4 Listen to the How to Create Content Series and learn how to build content in your business.
+          = render "shared/mailchimp_form", action: "https://neuralle.us10.list-manage.com/subscribe/post?u=c7a21948a398f006f046c5731&amp;id=f6f3bca6ff", key: "b_c7a21948a398f006f046c5731_f6f3bca6f"
+        .clearfix
+
+  -# %section#testimonials
+    .container
+      = render "static_pages/media/testimonials"

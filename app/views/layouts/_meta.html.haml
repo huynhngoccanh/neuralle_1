@@ -1,0 +1,14 @@
+= csrf_meta_tags
+= render "/refinery/html_tag"
+- site_bar = render('/refinery/site_bar', :head => true)
+= favicon_link_tag 'favicon.png'
+= render "/refinery/head"
+
+-# Google Fonts
+%link{:href => "https://fonts.googleapis.com/css?family=Open+Sans:300,400|Quicksand|Roboto:400,500,700", :rel => "stylesheet"}/
+
+/ Mailchimp styles
+%link{:href => "//cdn-images.mailchimp.com/embedcode/classic-10_7.css", :rel => "stylesheet", :type => "text/css"}/
+
+= javascript_include_tag 'modernizr-min'
+= site_bar

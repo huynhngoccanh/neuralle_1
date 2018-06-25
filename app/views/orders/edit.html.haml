@@ -1,0 +1,69 @@
+= render 'shared/zopim'
+
+#pricing
+  %section#headline
+    .container
+      %h1 Simple, flexible, transparent pricing
+
+    .container#stages-wrapper
+      = render "stages"
+
+
+  %section#customise
+    .container
+      = render "frequency"
+
+      %h2 Select your Options
+      %h4.bold Customise the package that will best suit your needs.
+      %p.centered-text We offer once off & monthly options across Content&nbsp;Production, Distribution and&nbsp;Social&nbsp;Media&nbsp;Management. Monthly packages receive extra perks including customer support.
+
+
+  %section#podcast-production
+    .container
+      %h3 Podcast Production
+      .product-tile.sliders-tile
+        .row
+          .col-md-4
+            .sliders-explanation
+              %p Choose an episode timeframe to suit your chat based podcast.
+              %p Podcast creation includes editing of raw audio and intro music, plus the creation of show notes to provide a full chat based episode.
+          .col-md-8#podcast-sliders.sliders-wrapper
+            = render "podcast_sliders"
+
+
+  %section#content-production
+    .container
+      %h3 Content Production
+      .product-tile.sliders-tile
+        .row
+          .col-md-4
+            .sliders-explanation
+              %p Choose your options across HD Image, Video and Audio to suit your preferred social media channels.
+              %p Remember that most social media platforms prioritise and focus on video media.
+          .col-md-8#content-sliders.sliders-wrapper
+            = render "content_sliders"
+
+
+  %section#management-distribution
+    .container
+      %h3 Management and Distribution
+      %p.centered-text Neuralle&nbsp;Media can take care of the considerable effort involved in managing or distributing your newly created media. Select your preferred social channel to distribute across or manage, and we'll&nbsp;handle&nbsp;the&nbsp;rest.
+      .row
+        #management-products
+          = render "management_products"
+        #rss-products
+          = render "rss_products"
+
+        .clearfix
+
+      #distribution-products
+        = render "distribution_products"
+
+
+  #review-anchor
+  %section#review
+    = render "review_order"
+
+
+  #total-widget
+    = render "total_widget"

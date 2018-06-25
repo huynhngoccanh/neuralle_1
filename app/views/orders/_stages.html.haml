@@ -1,0 +1,11 @@
+%ul#stages
+  %li.stage.active
+    %span.stage-label Select the Frequency
+  %li.stage#option-stage{ class: ("active" if @order.total_price.to_i > 0 || @order.nullified?) }
+    %span.stage-label Select your Options
+  %li.stage#review-stage{ class: ("active" if @order.terms_agreed) }
+    %span.stage-label Review your Purchase
+  %li.stage#brief-stage{ class: ("active" if @order.try(:brief_request).try(:completed?) && @order.terms_agreed) }
+    %span.stage-label Brief our Designers
+  %li.stage#receive-stage
+    %span.stage-label Receive your Production

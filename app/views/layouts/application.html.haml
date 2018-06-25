@@ -1,0 +1,20 @@
+!!!
+%html
+  %head
+    = render "layouts/meta"
+
+  %body{class: page_controller_class }
+    = render "shared/facebook_comments_script"
+    #page-overlay
+    #page_container
+      %header#header
+        = render "/refinery/header"
+      %section#page
+        - if request.path == '/podcast'
+          .header
+            %h3 Discover the podcast
+        = yield
+    %footer
+      = render "/refinery/footer"
+
+    = render "layouts/javascripts"

@@ -1,0 +1,151 @@
+$(function() {
+  // $('#s3_uploader').S3Uploader(
+  //   {
+  //     remove_completed_progress_bar: false,
+  //     progress_bar_target: $('#uploads_container')
+  //   }
+  // );
+  // $('#s3_uploader').bind('s3_upload_failed', function(e, content) {
+  //   return alert(content.filename + ' failed to upload');
+  // });
+});
+
+$(document).ready(function(){
+  loadAudioPlayer();
+  plyr.setup($('#audio1'), {});  
+})
+
+function loadAAA(){
+
+}
+
+function loadAudioPlayer(){
+  var play, audio, btnNext, btnPrev, buildPlaylist, index, li, loadTrack, npAction, npTitle, playTrack, playing, supportsAudio, trackCount;
+  supportsAudio = !!document.createElement('audio').canPlayType;
+  var wavesurfer = WaveSurfer.create({
+                    container: '#waveform',
+                    waveColor: '#959da0',
+                    progressColor: '#f77333',
+                    height: 180,
+                    barWidth: 2,
+                    hideScrollbar: false
+                });
+
+  if (supportsAudio) {
+    index = 0;
+    playing = false;
+    mediaPath = 'https://archive.org/download/mythium/';
+    extension = '';
+    console.log(tracks_list)
+    tracks = [
+      {
+        'track': 1,
+        'name': 'All This Is - Joe L.\'s Studio',
+        'duration': '2:46',
+        'file': 'JLS_ATI'
+      }, {
+        'track': 2,
+        'name': 'The Forsaken - Broadwing Studio (Final Mix)',
+        'duration': '8:30',
+        'file': 'BS_TF'
+      }, {
+        'track': 3,
+        'name': 'All The King\'s Men - Broadwing Studio (Final Mix)',
+        'duration': '5:01',
+        'file': 'BS_ATKM'
+      }, {
+        'track': 4,
+        'name': 'The Forsaken - Broadwing Studio (First Mix)',
+        'duration': '8:31',
+        'file': 'BSFM_TF'
+      }, {
+        'track': 36,
+        'name': 'The Forsaken (Take 2) - Smith St. Basement (Nov. \'03)',
+        'duration': '8:36',
+        'file': 'SSB___11_03_TFTake_2'
+      }
+    ];
+    console.log(tracks)
+    buildPlaylist = $(tracks_list).each(function(key, value) {
+      var trackDuration, trackName, trackNumber;
+      trackNumber = value.track;
+      console.log(trackNumber)
+      trackName = value.name;
+      trackDuration = value.duration;
+      if (trackNumber.toString().length === 1) {
+        trackNumber = '0' + trackNumber;
+      }
+      $('#plList').append('<li><div class="plItem"><span class="plNum">' + trackNumber + '.</span><span class="plTitle">' + trackName + '</span><span class="plLength">' + trackDuration + '</span></div></li>');
+    });
+    trackCount = tracks.length;
+    npAction = $('#npAction');
+    npTitle = $('#npTitle');
+    audio = $('#audio1').on('play', function() {
+      playing = true;
+      npAction.text('Now Playing...');
+    }).on('pause', function() {
+      playing = false;
+      npAction.text('Paused...');
+    }).get(0);
+    btnPrev = $('#btnPrev').on('click', function() {
+      if (index - 1 > -1) {
+        index--;
+        loadTrack(index, wavesurfer);
+        if (playing) {
+          audio.play();
+        }
+      } else {
+        audio.pause();
+        index = 0;
+        loadTrack(index, wavesurfer);
+      }
+    });
+    btnNext = $('#btnNext').on('click', function() {
+      if (index + 1 < trackCount) {
+        index++;
+        loadTrack(index, wavesurfer);
+        if (playing) {
+          audio.play();
+        }
+      } else {
+        audio.pause();
+        index = 0;
+        loadTrack(index, wavesurfer);
+      }
+    });
+    li = $('#plList li').on('click', function() {
+      var id;
+      id = parseInt($(this).index());
+      if (id !== index) {
+        playTrack(id, wavesurfer);
+      }
+    });
+
+    play = $('#npAction').on('click', function() {
+      wavesurfer.playPause();
+    });
+
+    $("#npAction").click(function(){
+        $("#npAction").toggleClass("active");
+    });
+
+    loadTrack = function(id, wavesurfer) {
+      $('.plSel').removeClass('plSel');
+      $('#plList li:eq(' + id + ')').addClass('plSel');
+      npTitle.text(tracks[id].name);
+      index = id;
+      audio.src = mediaPath + tracks[id].file + extension;
+      wavesurfer.load("https://archive.org/download/mythium/JLS_ATI.mp3");
+      wavesurfer.on('ready', function () {
+          wavesurfer.play();
+      });
+    };
+    playTrack = function(id, wavesurfer) {
+      loadTrack(id, wavesurfer);
+    };
+    extension = audio.canPlayType('audio/mpeg') ? '.mp3' : audio.canPlayType('audio/ogg') ? '.ogg' : '';
+    loadTrack(index, wavesurfer);
+  }
+}
+
+;

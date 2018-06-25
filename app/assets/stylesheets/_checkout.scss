@@ -1,0 +1,97 @@
+#checkout {
+  h2 {
+    margin: 0 0 40px;
+    text-align: center;
+  }
+
+  #review {
+    padding: 70px 0 80px;
+
+    #review-list {
+      width: 700px;
+    }
+  }
+  @media (max-width: 767px) {
+    #review {
+      #review-list {
+        width: 100%;
+      }
+    }
+  }
+}
+
+#back {
+  padding: 100px 0 0;
+}
+
+#brief-form {
+  padding: 70px 0 80px;
+  background: linear-gradient(135deg, #fde3de 0, #fde3de 30%, #F88862 100%);
+
+  h5 {
+    margin: -30px 0 30px;
+    text-align: center;
+  }
+  div[class*="col-"] {
+    padding: 0 7px;
+  }
+  form {
+    width: 700px;
+    margin: 0 auto;
+    padding: 0 7px;
+  }
+  label {
+    font-size: 1.6rem;
+    font-weight: 700;
+  }
+
+  @media (max-width: 767px) {
+    form {
+      width: 100%;
+    }
+  }
+}
+
+#payment-details {
+  padding: 65px 30px 65px;
+  box-shadow: 0 0 15px 0 #333;
+  text-align: center;
+  background: rgba(51, 51, 51, 0.8);
+  h4 {
+    color: #fff;
+    margin: 0 ;
+  }
+}
+
+.stripe-button-el {
+  background-image: none !important;
+  padding: 0 !important;
+  span {
+    background-image: none !important;
+    background: $sky_blue_colour !important;
+    padding: 16px 24px 14px !important;
+    height: auto !important;
+    line-height: 1.42857143 !important;
+    border: 0 none !important;
+    box-shadow: none !important;
+    color: #ffffff !important;
+    text-shadow: none !important;
+    margin: 0;
+    transition: all 0.3s ease;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    &:hover {
+      color: #ffffff;
+      opacity: 0.9;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+      outline: 0 none;
+    }
+  }
+}
+
+// .credit-card-icons {
+//   img {
+//     width: 42px;
+//   }
+// }

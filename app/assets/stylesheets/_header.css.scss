@@ -1,0 +1,262 @@
+$bgDefault: $red;
+$bgHighlight: #f17032;
+$colDefault: white;
+$colHighlight: #f17032;
+
+@mixin shrink_header {
+  height: 55px;
+  .nav-toggle .fa {
+    padding: 15px 25px;
+  }
+  #main-nav .navbar-nav {
+    padding: 54px 0 20px;
+  }
+  #social-nav {
+    padding: 39px 0 20px;
+  }
+  .navbar-default {
+    padding: 5px 0;
+    height: 55px;
+    background-color: rgba(247, 115, 52, 0.85);
+    .navbar-brand {
+      margin-left: -50px !important;
+      img {
+        width: 100px;
+      }
+    }
+  }
+
+  .logo {
+    font-size: 22pt;
+  }
+}
+
+#site_bar {
+  position: relative;
+  &.nav-toggled {
+    z-index: 1000;
+  }
+  a {
+    border: none;
+  }
+}
+
+header#header {
+  height: 80px;
+  position: relative;
+
+  .navbar-header {
+    width: 100%;
+    text-align: center;
+
+    ul {
+      display: inline-block;
+      margin: 0 20px;
+
+      li {
+        &:not(:first-child) {
+          margin-left: 20px;
+        }
+        a {
+          color: white;
+          font-family: $heading_font;
+          &:hover {
+            opacity: 0.6;
+          }
+        }
+      }
+    }
+  }
+
+  .logo {
+    font-family: "Quicksand", sans;
+    font-size: 32pt;
+    color: white;
+    margin: auto;
+    display: inline-block;
+  }
+
+  &.shrinked {
+    @include shrink_header;
+  }
+
+  &.site-bar-scrolled {
+    position: absolute;
+    top: 0;
+  }
+
+  a {
+    border: none;
+  }
+
+  .nav-toggle {
+    position: relative;
+    z-index: 999;
+    .fa {
+      @include transition(padding, 0.2s, ease);
+      z-index: 999;
+      color: $colDefault !important;
+      font-size: 2.5rem;
+      padding: 27px 25px;
+      position: fixed;
+    }
+  }
+
+  #main-nav-toggle {
+    @extend .nav-toggle;
+    float: left;
+  }
+
+  #social-nav-toggle {
+    @extend .nav-toggle;
+    float: right;
+    .fa {
+      right: 0;
+    }
+  }
+
+  .sidebar-nav {
+    position: fixed;
+  	z-index: 998;
+  	height: 100%;
+  	background-color: $bgDefault;
+    &.active {
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.45);
+    }
+  }
+
+  #main-nav {
+    @extend .sidebar-nav;
+    @include transition(left, 0.3s, ease);
+  	width: 100%;
+  	display: none;
+    padding: 100px 50px 0 50px;
+
+    &.active {
+      background: rgba(44,52,71,0.85);
+      display: block;
+    }
+    .navbar-nav {
+      font-family: $header_font;
+      list-style: none;
+      margin: 0;
+      float: unset;
+      padding: 0;
+
+      > li {
+        padding: 0;
+        width: 100%;
+        > a {
+          display: block;
+          font-size: 50px;
+          color: white;
+          text-align: left;
+          font-family: 'Chivo', sans-serif;
+          font-weight: 900;
+          font-style: normal;
+          line-height: 0.9em;
+
+          &:hover,  &:focus {
+            color: $colHighlight;
+            font-weight: 700;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.07);
+          }
+          img {
+            display: block;
+            height:  60px;
+            margin:  0 auto 5px auto;
+            width:   60px;
+          }
+        }
+      }
+      > .active {
+        > a, > a:hover, > a:focus {
+          color: $colHighlight;
+          font-weight: 700;
+          box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.07);
+        }
+      }
+    }
+
+    .legal {
+      padding: 2px;
+      font-size: 2.5rem;
+
+      a {
+        font-size: 3rem;
+        margin: 10px 0;
+        display: block;
+
+        &:hover,  &:focus {
+          color: $link_active;
+        }
+      }
+    }
+  }
+
+  #social-nav {
+    padding: 2px;
+
+    label {
+      font-size: 20px;
+    }
+    .links {
+      a {
+        margin-right: 8px;
+        font-size: 5rem;
+        width: 37px;
+        &:hover,  &:focus {
+          color: $link_active;
+        }
+      }
+    }
+  }
+
+  .navbar-default {
+    @include transition(all, 0.2s, ease);
+    z-index: 996;
+    background-color: rgba(247, 115, 52, 1);
+    padding: 10px 0;
+    height: 80px;
+    border: 0 !important;
+    top: auto;
+    .navbar-brand {
+      @include transition(margin, 0.2s, ease);
+      position: absolute;
+      left: 50%;
+      margin-left: -65px !important;
+      padding: 0;
+      img {
+        @include transition(width, 0.2s, ease);
+        width: 130px;
+      }
+    }
+  }
+
+  @media (max-width: 767px) {
+    @include shrink_header;
+
+    .navbar-header ul {
+      display: none;
+    }
+
+     .legal {
+      font-size: 1.5rem;
+      a {
+        font-size: 2.5rem;
+      }
+    }
+
+    #social-nav {
+      .links {
+        a {
+          font-size: 3rem;
+        }
+      }
+    }
+
+    #main-nav {
+      padding-top: 0;
+    }
+  }
+}

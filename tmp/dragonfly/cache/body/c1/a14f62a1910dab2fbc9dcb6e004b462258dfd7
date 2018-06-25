@@ -1,0 +1,32 @@
+(function() {
+  $(function() {
+    var isNotBlogPage, isNotHomepage, isNotPodcastPage, shrinkNavbar;
+    shrinkNavbar = function() {
+      if ($(this).scrollTop() > 0) {
+        $('#header').addClass('shrinked');
+        if ($('#site_bar').length) {
+          return $('header#header').addClass('site-bar-scrolled');
+        }
+      } else {
+        $('#header').removeClass('shrinked');
+        if ($('#site_bar').length) {
+          return $('header#header').removeClass('site-bar-scrolled');
+        }
+      }
+    };
+    isNotHomepage = function() {
+      return $('.pages_page.home_action').length === 0;
+    };
+    isNotBlogPage = function() {
+      return $('.posts_page.blog').length === 0;
+    };
+    isNotPodcastPage = function() {
+      return $('.pages_page.podcast').length === 0;
+    };
+    shrinkNavbar();
+    return $(window).scroll(function() {
+      return shrinkNavbar();
+    });
+  });
+
+}).call(this);

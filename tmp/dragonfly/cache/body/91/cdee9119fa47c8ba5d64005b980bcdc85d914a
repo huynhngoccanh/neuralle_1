@@ -1,0 +1,163 @@
+(function() {
+  $(document).ready(function() {
+
+    /* GENERAL */
+    var calculateTotal, enableSliders, newValue, oldValue, sendPodcastsToRss, setActivePricingPerks, setActiveTilesAndIcons, sliders, toggleNumberFieldIcon, toggleSliderIcons, toggleStages, updateSliderHandles;
+    setActiveTilesAndIcons = function() {
+      return $('#pricing input:checked').closest('label').addClass('active');
+    };
+    setActiveTilesAndIcons();
+    $('#pricing-selector form').on('change', function() {
+      return $(this).submit();
+    });
+    $('#pricing-selector .btn').on('click', function() {
+      $(this).closest("#pricing-selector").find(".btn").removeClass("active");
+      $(this).addClass("active");
+      $('#pricing-table td').removeClass('active');
+      if ($(this).is('#once')) {
+        return $('#pricing-table .once').addClass('active');
+      } else {
+        return $('#pricing-table .monthly').addClass('active');
+      }
+    });
+    setActivePricingPerks = function() {
+      if ($('#pricing-selector #once').hasClass('active')) {
+        return $('#pricing-table .once').addClass('active');
+      } else {
+        return $('#pricing-table .monthly').addClass('active');
+      }
+    };
+    setActivePricingPerks();
+    $(document).ajaxSuccess(function(event, xhr, settings) {
+      if (settings.url.includes('orders') || settings.url.includes('reset_order') || settings.url.includes('brief_request')) {
+        enableSliders();
+        setActiveTilesAndIcons();
+        updateSliderHandles();
+        return toggleStages();
+      }
+    });
+    $(document).ajaxSuccess(function(event, xhr, settings) {
+      if (settings.url.includes('order_items')) {
+        return toggleStages();
+      }
+    });
+
+    /* PLANS */
+
+    /* SLIDERS */
+    enableSliders = function() {
+      return $('#pricing .product-slider').slider();
+    };
+    enableSliders();
+    updateSliderHandles = function() {
+      return $("#pricing .slider-handle").each(function(i, handle) {
+        var quantity;
+        quantity = $(this).closest('form').find('input.product-slider').attr('data-slider-value');
+        return $(this).html("<p>" + quantity + "</p>");
+      });
+    };
+    updateSliderHandles();
+    sendPodcastsToRss = function() {
+      var podcasts_quantity;
+      podcasts_quantity = 0;
+      $('#podcast-sliders input.product-slider').each(function(i, slider) {
+        return podcasts_quantity += parseInt(slider.value);
+      });
+      return $('#rss-products input[type="number"]').val(podcasts_quantity).trigger('change');
+    };
+    $(document).on('slideStop slide', '#pricing .product-slider', function(e) {
+      var price, total_price;
+      price = parseInt($(this).attr("data-price"));
+      total_price = e.value * price;
+      $(this).closest(".slider-wrapper").find(".slider-total").text("$ " + total_price);
+      $(this).closest(".slider-wrapper").find(".slider-handle").html("<p>" + e.value + "</p>");
+      return toggleSliderIcons();
+    });
+    sliders = '#podcast-production .product-slider, #content-production .product-slider, #distribution-products .product-slider';
+    $(document).on('slideStop release', sliders, function() {
+      $(this).closest('form').submit();
+      if ($(this).closest('section').is('#podcast-production')) {
+        return sendPodcastsToRss();
+      }
+    });
+
+    /* MGMT/DISTR */
+    calculateTotal = function(price, quantity) {
+      var total_cost;
+      if (!quantity || quantity === "0" || quantity === 0) {
+        return "$ " + price * 1;
+      } else {
+        total_cost = price * quantity;
+        return "$ " + total_cost;
+      }
+    };
+    toggleNumberFieldIcon = function(e, quantity) {
+      if (quantity > 0) {
+        return e.closest('form').find('.fa').addClass('active');
+      } else {
+        return e.closest('form').find('.fa').removeClass('active');
+      }
+    };
+    toggleSliderIcons = function() {
+      return $('#distribution-sliders .product-slider').each(function(i, slider) {
+        var quantity;
+        parseInt(slider.value);
+        quantity = parseInt(slider.value);
+        if (quantity > 0) {
+          return $(this).closest('.slider-wrapper').find('.fa').addClass('active');
+        } else {
+          return $(this).closest('.slider-wrapper').find('.fa').removeClass('active');
+        }
+      });
+    };
+    toggleSliderIcons();
+    $(document).on('change', '#management-products input, #rss-products input', function() {
+      var price_value, quantity_value;
+      $(this).closest('form').submit();
+      $(this).closest('label').toggleClass("active");
+      price_value = $(this).closest('.product-tile').attr("data-price");
+      if ($(this).attr('type') === 'number') {
+        quantity_value = $(this).val();
+        toggleNumberFieldIcon($(this), quantity_value);
+      } else {
+        quantity_value = $(this).closest('.product-tile').find('input:checked').length;
+      }
+      return $(this).closest('.product-tile').find('.product-price').html(calculateTotal(price_value, quantity_value));
+    });
+
+    /* DISCOUNT CODE */
+    oldValue = "";
+    newValue = "";
+    $(document).on('focus', '#discount-code', function() {
+      return oldValue = $(this).val();
+    });
+    $(document).on('blur', '#discount-code', function() {
+      newValue = $(this).val();
+      if (oldValue !== newValue) {
+        return $(this).closest('form').submit();
+      }
+    });
+
+    /* STAGES */
+    toggleStages = function() {
+      var stagesHeight, stagesOffsetTop, totalOffset;
+      if ($('#stages-wrapper').length) {
+        stagesOffsetTop = $('#stages-wrapper').offset().top;
+        stagesHeight = $('#stages-wrapper').outerHeight();
+        totalOffset = stagesOffsetTop + stagesHeight / 3 - 5;
+        if ($(window).scrollTop() > totalOffset) {
+          $('#stages').addClass('fixed');
+          return $('#stages-wrapper').addClass('fixed');
+        } else {
+          $('#stages').removeClass('fixed');
+          return $('#stages-wrapper').removeClass('fixed');
+        }
+      }
+    };
+    toggleStages();
+    return $(window).on('scroll', function() {
+      return toggleStages();
+    });
+  });
+
+}).call(this);

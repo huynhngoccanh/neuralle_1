@@ -1,0 +1,62 @@
+%body
+  .row
+    .col-md-12
+      %article.full-width-post{:id => "#{dom_id(post)}"}
+        .row
+          .col-md-6.image
+            = link_to refinery.blog_post_path(post),
+                        { style: "background-image: url(#{ get_blog_image_url(post) });" } do
+              %span.screen-text-reader= post.title
+          .col-md-5.description
+            %h3= link_to post.title, refinery.blog_post_path(post)
+            -# %p= truncate(strip_tags(post.body), length: 160)
+            .author
+              By #{ post.author.username.titleize }
+              - if (categories = post.categories).any?
+                %br
+                in
+                -# = t('filled_in', :scope => 'refinery.blog.posts.show')
+                - categories.each_with_index do |category, index|
+                  = link_to category.title, refinery.blog_category_path(category)
+                  = ',' if index < ((categories.length) - 1)
+            .date
+              = l(post.published_at.to_date, :format => :short)
+    .container
+      .column.add-bottom
+        .audio-player.row
+          .col-md-3.col-sm-3.col-xs-3.image-audio.hidden-md.hidden-xs.hidden-sm
+            = image_tag("neuralle_podcast.jpg")
+          .col-md-9.col-sm-12.col-xs-12.image
+            .row#mainwrap
+              .col-md-1.col-sm-1.col-xs-2
+                #nowPlay
+                #npAction.left
+              .col-md-7.col-sm-7.col-xs-7
+                #nowPlay
+                %span= link_to 'Podcast Artwork', refinery.podcasts_podcasts_path, {class: 'none_border'}
+                %br
+                %span#npTitle
+            #waveform
+            #audiowrap
+              #audio0
+                %audio#audio1{:controls => "controls", :preload => ""} Your browser does not support HTML5 Audio!
+              / #tracks
+              /   %a#btnPrev ←
+              /   %a#btnNext →
+            .row.overlay-container
+              .col-md-1.col-sm-1.col-xs-2#mainwrap
+                %h5= link_to 'Share', refinery.root_path, {class: 'none_border'}
+              .col-md-1.col-sm-1.col-xs-2#mainwrap
+                %h5= link_to 'Subcribe', refinery.root_path, {class: 'none_border'}
+              .col-md-1.col-sm-1.col-xs-2#mainwrap
+                %h5= link_to 'Cookie', refinery.root_path, {class: 'none_border'}
+              .col-md-1.col-sm-1.col-xs-2#mainwrap
+                %h5= link_to 'Policy', refinery.root_path, {class: 'none_border'}
+              .col-md-6.col-sm-6.col-xs-3
+              .col-md-1.col-sm-1.col-xs-1
+                %h4= link_to 'Neuralle', refinery.root_path, {class: 'none_border logo'}
+
+        .row
+          #mainwrap
+            #plwrap
+              %ul#plList

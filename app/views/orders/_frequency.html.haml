@@ -1,0 +1,42 @@
+%h2 Select the Frequency
+%h4 Save 10% and receive extra perks with a monthly plan.
+
+#pricing-selector
+  = form_for @order, remote: true do |f|
+    .btn-group
+      = f.label :subscription_type_1, class: "btn", id: "once" do
+        Once Off
+        = f.radio_button :subscription_type, "1"
+      = f.label :subscription_type_2, class: "btn", id: "monthly" do
+        Monthly
+        = f.radio_button :subscription_type, "2"
+
+  #pricing-table
+    %table
+      %tr
+        %th{ colspan: 2 } Discount
+      %tr
+        %td.once 0%
+        %td.monthly 10%
+      %tr
+        %th{ colspan: 2 } Communication
+      %tr
+        %td.once Email
+        %td.monthly
+          = image_tag "slack_logo.png"
+      %tr
+        %th{ colspan: 2 } File&nbsp;Hosting + Delivery
+      %tr
+        %td.once Email + File&nbsp;Transfer
+        %td.monthly
+          = image_tag "google_drive_logo.png"
+      %tr
+        %th{ colspan: 2 } Revisions + Reviews
+      %tr
+        %td.once 1 Review
+        %td.monthly 1&nbsp;Revision + 1&nbsp;Review
+      %tr
+        %th{ colspan: 2 } Speed
+      %tr
+        %td.once Standard
+        %td.monthly Priority

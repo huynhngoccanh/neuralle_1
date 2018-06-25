@@ -1,0 +1,35 @@
+= link_to "javascript:void(0)", id: "main-nav-toggle" do
+  = fa_icon "bars"
+  = fa_icon "close", class: "hidden"
+
+#main-nav
+  .hidden-lg.hidden-md
+    = navigation_menu.to_html
+
+  #social-nav
+    .links
+      %label Connect with us
+      %br/
+      - @right_footers.each do |footer|
+        = display_footer(footer)
+
+  .legal
+    - @left_footers.reverse.each do |footer|
+      = display_footer(footer)
+
+%nav.navbar.navbar-default.navbar-fixed-top
+  .navbar-header
+    %ul.list-inline
+      %li
+        = link_to 'Read', '/blog'
+
+      %li
+        = link_to 'Listen', '/podcast'
+
+    = link_to '/' do
+      .logo Neuralle
+
+    %ul.list-inline
+      %li
+        = link_to '/media' do
+          Neuralle Media

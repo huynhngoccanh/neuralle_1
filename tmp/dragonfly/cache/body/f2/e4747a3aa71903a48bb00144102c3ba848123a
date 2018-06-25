@@ -1,0 +1,15 @@
+(function() {
+  $('#blog-sidebar').affix({
+    offset: {
+      top: 15,
+      bottom: 200
+    }
+  });
+
+  $(window).scroll(function() {
+    if ($(this).scrollTop() > 600) {
+      return $('#blog-sidebar #posts').slideDown(500);
+    }
+  });
+
+}).call(this);

@@ -1,0 +1,28 @@
+-# - content_for :stylesheets, stylesheet_link_tag('refinery/blog/frontend')
+.blog-index.blog
+  .header
+    %h3 Read our blog
+
+  .container
+    - content_for :body do
+      -# .blog-description
+      -#   = raw @page.content_for(first_refinery_page_default_part) if Refinery::Pages.default_parts.any?
+      -#   = render "sort"
+      -# %hr
+
+      - if @posts.any?
+        %section#blog_posts
+          = render "/refinery/blog/shared/full_width_post", post: @recent_post
+          - @posts.each_slice(4) do |slice|
+            .row
+              = render :partial => "/refinery/blog/shared/post", collection: slice
+            .clearfix
+
+          = will_paginate @posts, previous_label: fa_icon("long-arrow-left"), next_label: fa_icon("long-arrow-right")
+      - else
+        %p= t('.no_blog_articles_yet')
+    - content_for :side_body_prepend do
+      = raw @page.content_for(Refinery::Pages.default_parts.second[:slug])
+    - end if Refinery::Pages.default_parts.many?
+    -# = render '/refinery/blog/shared/body_content_right'
+    = render "/refinery/content_page"

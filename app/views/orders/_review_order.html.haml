@@ -1,0 +1,21 @@
+.container
+  %h2 Review your Purchase
+  %p.centered-text Once payment is made, our&nbsp;team will make direct&nbsp;contact and flesh out any specifics to&nbsp;start&nbsp;implementing your&nbsp;production straight&nbsp;away. We&nbsp;typically respond within&nbsp;24&nbsp;hours and aim&nbsp;to&nbsp;start as&nbsp;soon&nbsp;as&nbsp;possible.
+
+  - if @order.total_price > 0 || @order.nullified?
+    #review-list
+      = render "orders/review_list"
+
+    #terms-wrapper
+      = form_for @order, url: agree_to_terms_path do |f|
+        = f.check_box :terms_agreed, {required: true}, 1, 0
+        %p By selecting the box, you agree to the terms set out in this
+        = link_to "Client Service Agreement", service_agreement_page_path, target: "_blank"
+        .clearfix
+
+        = f.submit "Proceed with my package", class: "btn proceed cta", disabled: (@order.total_price == 0 && !@order.nullified?)
+
+  - else
+    #empty-package
+      %h3 There's still nothing to review.
+      %h4 Select your option or customise your package above.

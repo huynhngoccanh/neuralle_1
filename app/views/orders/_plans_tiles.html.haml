@@ -1,0 +1,16 @@
+.row
+  = form_for @order, remote: true do |f|
+    - @plans.each do |plan|
+
+      .col-md-4
+        = f.label "plan_id_#{plan.id}".to_sym, class: "plan-tile #{plan.name.downcase}" do
+          = f.radio_button :plan_id, plan.id, value: plan.id
+          %h3= plan.title
+          %p.subtitle= plan.description
+          %hr
+          - if plan.features.present?
+            .product-description.package
+              %p= plan.features.split(" | ").join("<br>").html_safe { |f| f }
+            %hr
+          .product-footer
+            %span{ class: "btn primary product-price" }= plan.price ? formatted_price_with_symbol(plan.price) : "Select below"
